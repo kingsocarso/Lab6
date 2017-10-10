@@ -44,6 +44,8 @@ public class FrontCompression {
         /*
          * Complete this function.
          */
+        System.out.print(corpus);
+        String[] input = corpus.split("\n");
         String output = "";
         int count = 0;
         Scanner scanner = new Scanner(corpus);
