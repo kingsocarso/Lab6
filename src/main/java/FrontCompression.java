@@ -44,8 +44,42 @@ public class FrontCompression {
         /*
          * Complete this function.
          */
+        String output = "";
+        int count = 0;
+        Scanner scanner = new Scanner(corpus);
+        while (scanner.hasNextLine()) {
+            String line, prefix = "";
+            String line2 = "";
+            if (count == 0 && scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                if (scanner.hasNextLine()) {
+                    line2 = scanner.nextLine();
+                }
+                prefix = line.substring(0, longestPrefix(line, line2));
+                if (prefix.length() > 0) {
+                    line2 = line2.substring(prefix.length());
+                    output = output + line + "\n" + line2 + "\n";
+                    count++;
+                } else {
+                    output = output + line + "\n" + line2 + "\n";
+                    count = 0;
+                }
+            } else if (scanner.hasNextLine()) {
+                line2 = scanner.nextLine();
+                if (line2.substring(0, prefix.length()) == prefix) {
+                    line2 = line2.substring(prefix.length());
+                    output = output + line2 + "\n";
+                    count++;
+                } else {
+                    output = output + line2 + "\n";
+                    count = 0;
+                }
+            }
+        }
+        scanner.close();
+        System.out.println(output);
 
-        return "";
+        return output;
     }
 
     /**
@@ -79,10 +113,15 @@ public class FrontCompression {
      * @return the length of the common prefix between the two strings
      */
     private static int longestPrefix(final String firstString, final String secondString) {
-        /*
-         * Complete this function.
-         */
-        return 0;
+        int lengthOfPrefix = 0;
+        for (int i = 0; i < firstString.toCharArray().length; i++) {
+            if ((firstString.toCharArray())[i] == (secondString.toCharArray())[i]) {
+                lengthOfPrefix++;
+            } else {
+                break;
+            }
+        }
+        return lengthOfPrefix;
     }
 
     /**
